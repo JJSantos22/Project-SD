@@ -1,0 +1,38 @@
+syntax = "proto3";
+package pt.ulisboa.tecnico.distledger.contract.namingserverservice;
+
+import "DistLedgerCommonDefinitions.proto";
+
+/** Naming server interface of the DistLedger Service */
+
+message RegisterRequest {
+    string serviceName = 1; // Service Name to register (ex: Distledger)
+    string qualifier = 2; // Qualifier to register (ex: A, B, etc.)
+    string address = 3; // Host and Port to register (host:port)
+}
+  
+message RegisterResponse {
+}
+
+message LookupRequest {
+  string serviceName = 1; // Service name to lookup
+  string qualifier = 2; // Qualifier to lookup
+}
+
+message LookupResponse {
+  repeated Server server = 1; // Host and Port of server found (host:port)
+}
+
+message DeleteRequest {
+  string serviceName = 1; // Service name of server to be deleted
+  string address = 2; // Host and post of server to be deleted
+}
+
+message DeleteResponse {
+}
+
+service NamingServerDistledgerService {
+    rpc register(RegisterRequest) returns (RegisterResponse);
+    rpc lookup(LookupRequest) returns (LookupResponse);
+    rpc delete(DeleteRequest) returns (DeleteResponse);
+}
